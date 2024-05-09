@@ -2,8 +2,8 @@ package main
 
 import (
 	"MoneyGoblin4/command_handler"
-	"MoneyGoblin4/commands/hi"
 	"MoneyGoblin4/commands/overview"
+	"MoneyGoblin4/commands/reminder"
 	"MoneyGoblin4/commands/report"
 	"flag"
 	"fmt"
@@ -56,5 +56,5 @@ func main() {
 }
 
 func create_commands(s *discordgo.Session) {
-	command_handler.Register_Command(s, "", &hi.Hi_Command{}, &overview.Overview_Command{}, &report.Report_Command{})
+	command_handler.Register_Command(s, "", &overview.Overview_Command{}, &report.Report_Command{}, &reminder.Reminder_Command{})
 }

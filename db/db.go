@@ -22,7 +22,7 @@ func init() {
 }
 
 func Update_World_Status() error {
-	resp, err := http.Get("http://127.0.0.1:8080/overview")
+	resp, err := http.Get("http://127.0.0.1:8000/overview")
 	if err != nil {
 		return err
 	}
@@ -42,7 +42,7 @@ func Fetch_Report(days int) ([]*structs.Loot_Model, error) {
 
 	report := make([]*structs.Loot_Model, 0)
 
-	resp, err := http.Get(fmt.Sprintf("http://127.0.0.1:8080/report?days=%d", days))
+	resp, err := http.Get(fmt.Sprintf("http://127.0.0.1:8000/report?days=%d", days))
 	if err != nil {
 		return nil, err
 	}
