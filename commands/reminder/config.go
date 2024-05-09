@@ -1,6 +1,7 @@
 package reminder
 
 import (
+	"io/fs"
 	"log"
 	"os"
 )
@@ -10,7 +11,7 @@ var filename string = "./reminder.txt"
 
 func init() {
 	// Open file for reading
-	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0644)
+	file, err := os.OpenFile(filename, os.O_RDONLY|os.O_CREATE, fs.ModeDir)
 	if err != nil {
 		log.Fatal(err.Error())
 		return
@@ -33,6 +34,7 @@ func init() {
 	}
 
 	channel_id = string(content)
+	log.Printf("Channel: %s", channel_id)
 }
 
 func update_reminder_channel(id string) error {

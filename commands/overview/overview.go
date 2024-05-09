@@ -41,7 +41,7 @@ func (oc *Overview_Command) Reference() *discordgo.ApplicationCommand {
 func (oc *Overview_Command) Handler(s *discordgo.Session, i *discordgo.InteractionCreate) error {
 
 	err := s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-		Type: discordgo.InteractionResponseDeferredMessageUpdate,
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Embeds: []*discordgo.MessageEmbed{build_overview()},
 			Components: []discordgo.MessageComponent{

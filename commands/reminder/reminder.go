@@ -79,6 +79,8 @@ func send_resend(s *discordgo.Session) {
 
 		reminder_time = get_final_return_time()
 
+		log.Printf("Reminder time: %d", reminder_time)
+
 		if reminder_time == last_reminder {
 			continue
 		}
@@ -101,9 +103,11 @@ func send_resend(s *discordgo.Session) {
 		sleep := reminder_time - time.Now().Unix()
 
 		if sleep < 1 {
+			log.Println("Sleep time: 60")
 			time.Sleep(60 * time.Second)
 			continue
 		}
+		log.Printf("Sleep time: %d", sleep)
 		time.Sleep(time.Duration(sleep) * time.Second)
 
 	}
