@@ -3,7 +3,6 @@ package reminder
 import (
 	"MoneyGoblin4/db"
 	"MoneyGoblin4/structs"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -28,29 +27,23 @@ func init() {
 				log.Fatal(err.Error())
 				continue
 			}
+
 			// Decode the JSON body into the struct
-			var timer_data []structs.Timer_Model
-			if err := json.NewDecoder(bytes.NewReader(message)).Decode(&timer_data); err != nil {
-				log.Fatal(err.Error())
+			var timer_data structs.Timer_Model
+			if err := json.Unmarshal(message, &timer_data); err != nil {
+				fmt.Printf("Error decoding JSON: %v\n", err)
 				continue
 			}
 
 			// Insert each timer model into the database
-			for _, timer := range timer_data {
-				written := false
-				for _, w := range db.World_Statuses {
-					for _, fc := range w.Free_Company_List {
-						if fc.ID != timer.Fc_id {
-							continue
-						}
-						fc.Submersible_List[timer.Sub_id].Name = timer.Name
-						fc.Submersible_List[timer.Sub_id].Return_Time = timer.Return_time
-						written = true
-						break
+			for _, w := range db.World_Statuses {
+				for _, fc := range w.Free_Company_List {
+					if fc.ID != timer_data.Fc_id {
+						continue
 					}
-					if written {
-						break
-					}
+					fc.Submersible_List[timer_data.Sub_id].Name = timer_data.Name
+					fc.Submersible_List[timer_data.Sub_id].Return_Time = timer_data.Return_time
+					break
 				}
 			}
 

@@ -22,7 +22,7 @@ type Submersible_Status struct {
 type Loot_Model struct {
 	Timestamp int64  `json:"time"`
 	Fc_id     string `json:"fcid"`
-	Sub_id    string `json:"sub_id"`
+	Sub_id    int    `json:"sub_id"`
 	Player    string `json:"player"`
 	World     string `json:"world"`
 	Sector_id int    `json:"sector_id"`
